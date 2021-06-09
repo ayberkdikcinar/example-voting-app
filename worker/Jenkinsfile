@@ -24,13 +24,14 @@ pipeline{
             steps{
                 echo 'this is a packeging.'
                 dir('worker'){
-                    sh 'mvn package'
+                    sh 'mvn package -DskipTests'
                 }
             }
         }
     }
     post{
         always{
+	    archieveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             echo 'building multibranch pipeline for worker is completed..'
         }
     }
