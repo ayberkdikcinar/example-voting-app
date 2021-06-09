@@ -1,0 +1,33 @@
+pipeline{
+    agent any
+    tools{
+        maven 'Maven 3.8.1'
+    }
+    stages{
+        stage('build'){
+            steps{
+                echo 'this is build step'
+                dir('worker'){
+                    sh 'mvn compile'
+                } 
+            }
+        }
+        stage('test'){
+            steps{
+                echo 'this is a test step'
+            
+            }
+        }
+        stage('package'){
+            steps{
+                echo 'this is a packeging.'
+                
+            }
+        }
+    }
+    post{
+        always{
+            echo 'building multibranch pipeline for worker is completed..'
+        }
+    }
+}
