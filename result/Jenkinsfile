@@ -1,0 +1,40 @@
+pipeline{
+    
+    agent any
+    tools{
+       nodejs 'NodeJs 16.2.0'
+    }
+    stages{
+        stage('build'){
+            when{
+                changeset "**/result/**"
+            }
+            steps{
+                echo 'build is running'
+                dir('result'){
+                    npm install
+                }
+            
+            }
+        }
+        stage('test'){
+            when{
+                changeset "**/result/**"
+            }
+            steps{
+                echo 'test is running'
+                dir('result'){
+                    npm install
+                    npm test
+                }
+            
+            }
+        }
+    }
+
+    post{
+        always{
+            echo 'build is completed..'
+        }
+    }
+}
