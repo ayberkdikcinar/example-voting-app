@@ -1,0 +1,33 @@
+pipeline{
+
+    agent{
+        docker{
+           image 'python:2.7.16-slim'
+        }
+    }
+    stages{
+        stage('build'){
+            when{
+                changeset "**/vote/**"
+            }
+            steps{
+                dir('vote'){
+                    sh 'pip -install'
+                    sh 'i requirements.txt'
+                }
+            }
+        }
+        stage('test'){
+            when{
+                changeset "**/vote/**"
+            }
+            steps{
+                dir('vote'){
+                    sh 'nosetests -v'
+                }
+            }
+        }
+
+    }
+
+}
