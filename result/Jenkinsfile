@@ -43,7 +43,8 @@ pipeline{
                         def resultImage = docker.build("testxenon12481248/result:v${env.BUILD_ID}","./result")
                         resultImage.push()
                         resultImage.push("${env.BRANCH_NAME}")
-                }
+                    }
+                }   
             }
         }
     }
