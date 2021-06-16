@@ -34,7 +34,7 @@ pipeline{
                 }
             }
         }
-        stage(docker-package){
+        stage('docker-package'){
             agent any
             when{
                 changeset "**/vote/**"
