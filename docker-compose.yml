@@ -41,6 +41,14 @@ services:
             - instavote
         depends_on:
             - db
+    docker:
+        image: docker:dind
+        ports:
+            - 2376:2376
+            - 8090:8090
+            - 4000:4000
+        environment:
+            - DOCKER_TLS_CERTDIR=/certs   
 volumes:
     db-data:
 

@@ -113,6 +113,13 @@ pipeline{
             
             }
         }
+        stage('deploy'){
+            agent any
+            steps{
+                echo 'compose running'
+                sh 'sudo docker-compose up -d'
+            }
+        }
     }
 
 }
