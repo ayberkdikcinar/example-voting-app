@@ -1,0 +1,51 @@
+version: '3.4'
+services:
+
+    db:
+        image: postgres:9.4
+        volumes:
+            - "db-data:/var/lib/postgresql/data"
+        networks:
+            - instavote
+        environment:
+            - POSTGRES_HOST_AUTH_METHOD=trust
+
+    redis:
+        image: redis:alpine
+        networks:
+            - instavote
+
+    worker:
+        build: ./worker
+        container_name: worker-app
+        networks:
+            - instavote
+        depends_on:
+            - redis
+            - db
+    vote:
+        image: test12481248xenon/vote:dockerbuild
+        container_name: vote_app
+        ports:
+            - 8090:80
+        networks:
+            - instavote
+        depends_on:
+            - redis
+    result:
+        image: test12481248xenon/result:v11
+        container_name: result_app
+        ports:
+            - 4000:4000
+        networks:
+            - instavote
+        depends_on:
+            - db
+volumes:
+    db-data:
+
+networks:
+    instavote:
+        driver: bridge
+
+        
