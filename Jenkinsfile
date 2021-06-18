@@ -1,9 +1,6 @@
 pipeline{
 
     agent none
-    tools{
-       nodejs 'NodeJs 16.2.0'
-    }
     stages{
         stage('worker/build'){
             agent{
@@ -58,9 +55,6 @@ pipeline{
                     args '--user root'
                 }   
             }
-            when{
-                changeset "**/vote/**"
-            }
             steps{
                 dir('vote'){
                     sh 'pip install -r requirements.txt'
@@ -74,9 +68,6 @@ pipeline{
                     args '--user root'
                 }   
             }            
-            when{
-                changeset "**/vote/**"
-            }
             steps{
                 dir('vote'){
                     sh 'pip install -r requirements.txt'
@@ -86,18 +77,18 @@ pipeline{
         }
         stage('vote/package'){
             agent any
-            when{
-                changeset "**/vote/**"
-            }
             steps{
-                echo 'this step is package for vote'
+                dir('vote'){
+                    echo 'this step is package for vote'
+                }
+                
             }
         }
 
         stage('result/build'){
             agent any
-            when{
-                changeset "**/result/**"
+            tools{
+                nodejs 'NodeJs 16.2.0'
             }
             steps{
                 echo 'build is running'
@@ -110,8 +101,8 @@ pipeline{
 
         stage('result/test'){
             agent any
-            when{
-                changeset "**/result/**"
+            tools{
+                nodejs 'NodeJs 16.2.0'
             }
             steps{
                 echo 'test is running'
@@ -120,15 +111,6 @@ pipeline{
                     sh 'npm test'
                 }
             
-            }
-        }
-        stage('deploy-to-dev'){
-            agent any
-            when{
-                branch 'master'
-            }
-            steps{
-                sh 'sudo docker-compose up -d'
             }
         }
     }
