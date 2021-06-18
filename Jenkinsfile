@@ -114,10 +114,5 @@ pipeline{
             }
         }
     }
-    post{
-        always{
-	    archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-            echo 'building multibranch pipeline for all is completed..'
-        }
-    }
+
 }
