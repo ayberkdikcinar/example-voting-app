@@ -27,7 +27,7 @@ services:
         image: test12481248xenon/vote:dockerbuild
         container_name: vote_app
         ports:
-            - 5001:80
+            - 8090:80
         networks:
             - instavote
         depends_on:
@@ -41,14 +41,7 @@ services:
             - instavote
         depends_on:
             - db
-    docker:
-        image: docker:dind
-        ports:
-            - 2374:2376
-            - 5001:5001
-            - 5000:5000
-        environment:
-            - DOCKER_TLS_CERTDIR=/certs   
+         
 volumes:
     db-data:
 
