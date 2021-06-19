@@ -117,6 +117,7 @@ pipeline{
             agent any
             steps{
                 echo 'compose running'
+                sh 'docker-compose down'
                 sh 'docker-compose up -d'
             }
         }
