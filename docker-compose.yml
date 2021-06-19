@@ -44,7 +44,7 @@ services:
     docker:
         image: docker:dind
         ports:
-            - 2376:2376
+            - 2375:2376
             - 8090:8090
             - 4000:4000
         environment:
