@@ -163,6 +163,15 @@ pipeline{
                 }
             }
         }
+        stage('ıntegration test'){
+            steps{
+                dir('vote'){
+                  sh './integration_test.sh'  
+                }
+                
+                
+            }
+        }
         stage('deploy'){
             agent any
             steps{
