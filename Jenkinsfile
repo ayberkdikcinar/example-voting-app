@@ -164,6 +164,7 @@ pipeline{
             }
         }
         stage('ıntegration test'){
+            agent any
             steps{
                 dir('vote'){
                   sh './integration_test.sh'  
