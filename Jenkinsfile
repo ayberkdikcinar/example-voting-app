@@ -8,9 +8,9 @@ pipeline{
                     image 'maven:3.6.1-jdk-8-slim' 
                     args '-v $HOME/.m2:/root/.m2'
                 }
+            }
             when{
                 changeset '**/worker/**'
-            }
             }
             steps{
                 echo 'this is build step'
@@ -25,11 +25,10 @@ pipeline{
                     image 'maven:3.6.1-jdk-8-slim' 
                     args '-v $HOME/.m2:/root/.m2'
                 }
+            }  
             when{
                 changeset '**/worker/**'
-            }
-        
-            }            
+            }         
             steps{
                 echo 'this is a test step'
                 dir('worker'){
@@ -43,10 +42,10 @@ pipeline{
                     image 'maven:3.6.1-jdk-8-slim' 
                     args '-v $HOME/.m2:/root/.m2'
                 }
+            }
             when{
                 changeset '**/worker/**'
-            }
-            }
+            }           
             steps{
                 echo 'this is a packeging.'
                 dir('worker'){
